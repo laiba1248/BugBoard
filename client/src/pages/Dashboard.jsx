@@ -24,7 +24,7 @@ function Dashboard() {
       })
       setBugs(response.data.bugs)
     } catch (err) {
-      setError('Failed to load bugs')
+      setError('Failed to load bugs',err)
     } finally {
       setLoading(false)
     }
@@ -38,7 +38,7 @@ function Dashboard() {
       })
       setUsers(response.data.users)
     } catch (err) {
-      console.error('Failed to load users')
+      console.error('Failed to load users',err)
     }
   }
 
@@ -66,7 +66,7 @@ function Dashboard() {
     setDescription('')
     setSeverity('medium')
   } catch (err) {
-    setError('Failed to create bug')
+    setError('Failed to create bug',err)
   }
 }
 
@@ -82,7 +82,7 @@ const handleStatusChange = async (bugId, newStatus) => {
 
     setBugs(bugs.map((bug) => (bug.id === bugId ? response.data.bug : bug)))
   } catch (err) {
-    setError('Failed to update bug status')
+    setError('Failed to update bug status',err)
   }
 }
 
@@ -98,7 +98,7 @@ const handleAssigneeChange = async (bugId, newAssigneeId) => {
 
     setBugs(bugs.map((bug) => (bug.id === bugId ? response.data.bug : bug)))
   } catch (err) {
-    setError('Failed to update assignee')
+    setError('Failed to update assignee',err)
   }
 }
 
@@ -112,7 +112,7 @@ const handleDelete = async (bugId) => {
 
     setBugs(bugs.filter((bug) => bug.id !== bugId))
   } catch (err) {
-    setError('Failed to delete bug')
+    setError('Failed to delete bug',err)
   }
 }
 
