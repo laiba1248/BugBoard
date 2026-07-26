@@ -1,6 +1,6 @@
 import './Auth.css'
 import { useState } from 'react'
-import axios from 'axios'
+import api from '../api/axios'
 import { useNavigate } from 'react-router-dom'
 
 function Signup() {
@@ -15,7 +15,7 @@ function Signup() {
     setError('')
 
     try {
-      await axios.post('http://localhost:5000/api/auth/signup', {
+      await api.post('/api/auth/signup', {
         name,
         email,
         password,

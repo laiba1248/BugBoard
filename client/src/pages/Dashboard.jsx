@@ -1,6 +1,6 @@
 import './Dashboard.css'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../api/axios'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -19,7 +19,7 @@ function Dashboard() {
   const fetchBugs = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:5000/api/bugs', {
+      const response = await api.get('/api/bugs', {
         headers: { Authorization: `Bearer ${token}` },
       })
       setBugs(response.data.bugs)
@@ -33,7 +33,7 @@ function Dashboard() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:5000/api/auth/users', {
+      const response = await api.get('/api/auth/users', {
         headers: { Authorization: `Bearer ${token}` },
       })
       setUsers(response.data.users)
@@ -55,8 +55,8 @@ function Dashboard() {
 
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.post(
-      'http://localhost:5000/api/bugs',
+    const response = await api.post(
+      '/api/bugs',
       { title, description, severity },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -74,8 +74,8 @@ function Dashboard() {
 const handleStatusChange = async (bugId, newStatus) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.put(
-      `http://localhost:5000/api/bugs/${bugId}`,
+    const response = await api.put(
+      `/api/bugs/${bugId}`,
       { status: newStatus },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -90,8 +90,8 @@ const handleStatusChange = async (bugId, newStatus) => {
 const handleAssigneeChange = async (bugId, newAssigneeId) => {
   try {
     const token = localStorage.getItem('token')
-    const response = await axios.put(
-      `http://localhost:5000/api/bugs/${bugId}`,
+    const response = await api.put(
+      `/api/bugs/${bugId}`,
       { assigneeId: newAssigneeId || null },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -106,7 +106,7 @@ const handleAssigneeChange = async (bugId, newAssigneeId) => {
 const handleDelete = async (bugId) => {
   try {
     const token = localStorage.getItem('token')
-    await axios.delete(`http://localhost:5000/api/bugs/${bugId}`, {
+    await api.delete(`/api/bugs/${bugId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
 

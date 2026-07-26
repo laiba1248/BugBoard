@@ -1,6 +1,6 @@
 import './Auth.css'
 import {useState} from 'react'
-import axios from 'axios'
+import api from '../api/axios'
 import { useNavigate} from 'react-router-dom'
 
 function Login(){
@@ -13,7 +13,7 @@ function Login(){
         e.preventDefault()
         setError('')
         try{
-            const response=await axios.post('http://localhost:5000/api/auth/login',
+            const response=await api.post('/api/auth/login',
                 {
                     email,
                     password,
